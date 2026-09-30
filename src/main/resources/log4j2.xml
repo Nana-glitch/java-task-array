@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+  <Properties>
+    <Property name="LOG_DIR">logs</Property>
+    <Property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{1} - %msg%n</Property>
+  </Properties>
+
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${PATTERN}"/>
+    </Console>
+
+    <RollingFile name="File"
+                 fileName="${LOG_DIR}/task-array.log"
+                 filePattern="${LOG_DIR}/task-array-%d{yyyy-MM-dd}-%i.log.gz">
+      <PatternLayout pattern="${PATTERN}"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="5 MB"/>
+        <TimeBasedTriggeringPolicy/>
+      </Policies>
+      <DefaultRolloverStrategy max="10"/>
+    </RollingFile>
+  </Appenders>
+
+  <Loggers>
+    <Root level="debug">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="File"/>
+    </Root>
+  </Loggers>
+</Configuration>
